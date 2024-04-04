@@ -1,6 +1,8 @@
-# **Interface**
 
-An **Interface in Java** programming language is defined as an abstract type used to specify the behavior of a class. An interface in Java is a blueprint of a behavior. A Java interface contains static constants and abstract methods. It is used to achieve abstraction and multiple inheritances in Java using Interface.
+# Chapter 7 - Beyond Classes
+## **Interface**
+
+An Interface in Java programming language is defined as an abstract type used to specify the behavior of a class. An interface in Java is a blueprint of a behavior. A Java interface contains static constants and abstract methods. It is used to achieve abstraction and multiple inheritances in Java using Interface.
 
 ```java
 public abstract interface CanBurrow {
@@ -55,3 +57,46 @@ They were added primarily to reduce code duplication. They can only be used in t
 
 - Hiding implementation details from classes that implement the interface achieving encapsulation
 - Less duplication and more re-usable code added to interfaces for methods with similar functionality.
+
+Het is gewoon handig, want stel je wilt in meerdere default methods hetzelfde stukje code uitvoeren, dan kun je daar nu gewoon een private methode voor aanmaken waarin dat stukje code centraal staat. Just handy! 
+
+Rules: 
+- A private interface method must be marked with the private modifier and include a method body.
+- A private static interface method may be called by any method within the interface definition.
+- A private interface method may only be called by default and other private non-static methods within the interface.
+
+Private method is alleen beschikbaar voor non-static methods en private static is voor elke methode soort beschikbaar.
+
+Key points:
+- Treat abstract, default, and non-static private methods as belonging to an instance of the interface.
+- Treat static methods and variables as belonging to the interface class object.
+- All private interface method types are only accessible within the interface declaration.
+
+## **Enums (special kind of class)**
+
+Fixed set of constants. Using an enum is much better than using a bunch of constants because it provides type-safe checking. With numeric or String constants, you can pass an invalid value and not find out until runtime. With enums it is impossible to create an invalid enum value without introducing a compiler error.
+
+For example, considering the months, if we have constants as int (static final int JANUARY = 1) then a variable or method parameter must be declared as int and would accept any integer value, valid or not(e.g. setMonth(123) or setMonth(0)).
+
+If we have an enum, then the variables or method parameters can only accept its values - errors (wrong constants) can be detected at compile time (exception: null which can also be assigned/passed instead of an enum, like any reference type).
+
+Each enum value has a corresponding int value listed in the order they are declared, starting from 0. You can’t compare an int and enum value directly:
+
+```If (Season.SUMMER == 2) {} // DOES NOT COMPILE```
+
+When using enums in switch expressions, you must use the value directly as the case:
+
+Case WINTER
+Case Season.WINTER // DOES NOT COMPILE
+
+While a simple enum is composed of just a list of values, we can define a complex enumeration with additional elements. In the code below, the values are enum constants, not strings (which you probably assumed). 
+
+enum Season {
+    WINTER,
+    SPRING,
+    SUMMER,
+    FALL
+}
+
+Every enum constant is static.
+
